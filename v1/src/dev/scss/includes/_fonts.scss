@@ -1,0 +1,10 @@
+@import "func";
+//- using mixin fonts
+//- @include fonts(fontname, fontfile, font-weight, font-style);
+
+/*********************
+    - 1. Fonts -
+*********************/
+
+//- @include fonts(fontname, filename, font-weight, font-style);
+@include fonts('flaticon', 'flaticon', 400, italic);

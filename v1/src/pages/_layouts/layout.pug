@@ -1,0 +1,28 @@
+include ../_partials/mixins.pug
+<!DOCTYPE html>
+html(lang="en")
+  head
+      title=base.title
+      meta(charset="utf-8")
+      meta(name="description" content=base.description)
+      meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1, shrink-to-fit=no, user-scalable=no")
+      meta(name="keywords", content=base.keywords)
+      meta(name="author", content=base.author)
+      // Styles
+      link(rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css")
+      link(rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css")
+      block csslibs
+      link(rel="stylesheet" type="text/css" href="style.css")
+  body
+    #wrapper
+      include ../_partials/header.pug
+      block content
+      include ../_partials/footer.pug
+    //#wrapper
+
+    //JS
+    script(src="libs/jQuery/jquery-3.3.1.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js")
+    block scriptlibs
+    script(src="js/core.js")
+
