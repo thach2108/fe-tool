@@ -28,7 +28,7 @@ module.exports = (plop) => {
         },
         {
           type: "modify",
-          path: "src/scss/_components.scss",
+          path: "src/dev/scss/_components.scss",
           pattern: /(\/\/ Components)/g,
           template: "$1\n@import \"../components/{{dashCase name}}/{{dashCase name}}\";"
         },
