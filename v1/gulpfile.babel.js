@@ -157,6 +157,8 @@ gulp.task("serve", ["clean"], cb => {
   gulp.watch(["src/_data/data.json"], ["pug", reload]);
   gulp.watch(["src/**/**/*.scss"], ["lint:css", "styles", reload]);
   gulp.watch(["src/dev/js/*.js"], ["scripts", reload]);
+  
+  reload();
 });
 
 gulp.task("default", ["clean"], cb => {

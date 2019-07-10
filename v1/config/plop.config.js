@@ -6,13 +6,13 @@ module.exports = (plop) => {
         type: "input",
         name: "name",
         message: "What is your component name?",
-      },
-      {
-        type: "confirm",
-        name: "needJs",
-        message: "Shoud i create JavaScript file?",
-        default: false
       }
+      // {
+      //   type: "confirm",
+      //   name: "needJs",
+      //   message: "Shoud i create JavaScript file?",
+      //   default: false
+      // }
     ],
 
     actions: function (data) {
@@ -30,7 +30,7 @@ module.exports = (plop) => {
           type: "modify",
           path: "src/dev/scss/_components.scss",
           pattern: /(\/\/ Components)/g,
-          template: "$1\n@import \"../components/{{dashCase name}}/{{dashCase name}}\";"
+          template: "$1\n@import \"../../components/{{dashCase name}}/{{dashCase name}}\";"
         },
         {
           type: "modify",
@@ -40,13 +40,13 @@ module.exports = (plop) => {
         }
       ];
 
-      if (data.needJs) {
-        actions.push({
-          type: "add",
-          path: "src/components/{{dashCase name}}/{{dashCase name}}.js",
-          templateFile: "config/plop-templates/component.js"
-        });
-      }
+      // if (data.needJs) {
+      //   actions.push({
+      //     type: "add",
+      //     path: "src/components/{{dashCase name}}/{{dashCase name}}.js",
+      //     templateFile: "config/plop-templates/component.js"
+      //   });
+      // }
 
       return actions;
     }
