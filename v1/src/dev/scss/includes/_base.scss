@@ -20,6 +20,10 @@ body {
 
 a {
   color: inherit;
+  &:hover{
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 img {
@@ -43,4 +47,20 @@ img {
 .clear-fix,
 .clearfix {
   clear: both;
+}
+
+.disable{
+  display: none;
+}
+
+.font-12{
+  font-size: 12px;
+}
+
+.font-11{
+  font-size: 11px;
+}
+
+.text-gray{
+  color: $text-gray;
 }

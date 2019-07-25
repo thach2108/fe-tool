@@ -1,0 +1,93 @@
+mixin subheader(mods)
+  //- Type:
+  //-   title {string}
+  //-   mods {string}
+  //- Use:
+        +subheader()
+          p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, eum?
+  case mods
+    when 0
+      .subheader.subheader-wrap 
+    when 1
+      .subheader.subheader-wrap 
+    default
+      .subheader.subheader-wrap
+        .header--top
+          .container-fluid
+            .d-flex
+              ul.list-inline.ml-auto
+                li.font-weight-light.font-11
+                  i.far.fa-user
+                  span.ml-2 Sign In / Resister
+                li.font-weight-light.font-11.ml-5
+                  i.fas.fa-globe
+                  span.ml-2 United / English
+        .header--mid
+          .container-fluid
+            .d-flex.align-items-center
+              .logo
+                img(src="images/vsec_logo1.png", alt="logo")
+              .border-right.mx-3(style="height: 60px;")  
+              .menu-site.position-relative
+                a.card.px-3.menu-ctl(data-toggle="collapse" href="#collapseMenu" role="button" aria-expanded="false" aria-controls="collapseMenu")
+                  span ENTERPRISE
+                  i.fas.fa-angle-up.text-center
+                #collapseMenu.menu.collapse.position-absolute
+                  ul.sub-list.list-unstyled.card
+                    li.px-3.border-bottom.h-100.active
+                      a.site-selector-href-no-image(href='index.html')
+                        .no-image-text ENTERPRISE
+                        .user-lock-selection.font-12.vertical-align-middle.text-gray.pl-3
+                          .fas.fa-user.mr-2
+                          | 250+
+                    li.px-3.border-bottom.h-100
+                      a.site-selector-href-no-image(href='business.html')
+                        .no-image-text BUSINESS
+                        .user-lock-selection.font-12.vertical-align-middle.text-gray.pl-3
+                          .fas.fa-user.mr-2
+                          | 1-250
+                    li.px-3.border-bottom.h-100
+                      a.site-selector-href-no-image(href='bin/symantec/signin.html?returnUrl=/content/symantec/english/en/partner-landing')
+                        .no-image-text PARTNERNET
+                        .user-lock-selection.font-12.vertical-align-middle.text-gray.pl-3
+                          .fas.fa-lock.mr-2
+                          | Sign In Required
+                    li.px-3.border-bottom.h-100
+                      a.site-selector-anchor(href='https://us.norton.com/', target='_blank')
+                        img(src='images/norton-logo.svg', alt='NORTON')
+                    li.px-3.border-bottom.h-100
+                      a.site-selector-anchor(href='https://www.lifelock.com/', target='_blank')
+                        img(src='images/lifelock-logo.svg', alt='LIFELOCK')
+              a.search.ml-auto(data-toggle="collapse" href="#collapseSearch" role="button" aria-expanded="false" aria-controls="collapseSearch")
+                i.fas.fa-search
+          #collapseSearch.destination-search.py-2.mt-2.collapse
+            .d-flex.justify-content-center
+              form.frm-search(action="").row
+                .col-10
+                  input.form-control(type="text" placeholder="Search")
+                .col-2
+                  .row
+                    button.btn go
+        .header--bot
+          .container-fluid
+            nav.main-nav
+              ul.list-inline
+                li
+                  a(href="#") Lorem, ipsum.
+                    span
+                li
+                  a(href="#") Lorem, ipsum.
+                    span
+                li
+                  a(href="#") Lorem, ipsum.
+                    span
+                li
+                  a(href="#") Lorem, ipsum.
+                    span
+                li
+                  a(href="#") Lorem, ipsum.
+                    span
+                li
+                  a(href="#") Lorem, ipsum.
+                    span
+  //.subheader-wrap
