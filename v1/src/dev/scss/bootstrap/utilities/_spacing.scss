@@ -26,6 +26,24 @@
         .#{$abbrev}x#{$infix}-#{$size} {
           #{$prop}-left: $length !important;
         }
+
+        .#{$abbrev}#{$infix}-#{$size}-n { #{$prop}: $length !important; }
+        .#{$abbrev}t#{$infix}-#{$size}-n,
+        .#{$abbrev}y#{$infix}-#{$size}-n {
+          #{$prop}-top: -$length !important;
+        }
+        .#{$abbrev}r#{$infix}-#{$size}-n,
+        .#{$abbrev}x#{$infix}-#{$size}-n {
+          #{$prop}-right: -$length !important;
+        }
+        .#{$abbrev}b#{$infix}-#{$size}-n,
+        .#{$abbrev}y#{$infix}-#{$size}-n {
+          #{$prop}-bottom: -$length !important;
+        }
+        .#{$abbrev}l#{$infix}-#{$size}-n,
+        .#{$abbrev}x#{$infix}-#{$size}-n {
+          #{$prop}-left: -$length !important;
+        }
       }
     }
 
