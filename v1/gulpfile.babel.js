@@ -161,6 +161,22 @@ gulp.task("serve", ["clean"], cb => {
   reload();
 });
 
+gulp.task("watch", ["clean"], cb => {
+  
+  runSequence(
+    ["pug", "styles", "scripts", "images_dev"],
+    "copy",
+    "delete-empty",
+    cb
+  );
+
+  gulp.watch(["src/**/**/*.pug"], ["pug", reload]);
+  gulp.watch(["src/_data/data.json"], ["pug", reload]);
+  gulp.watch(["src/**/**/*.scss"], ["lint:css", "styles", reload]);
+  gulp.watch(["src/dev/js/*.js"], ["scripts", reload]);
+
+});
+
 gulp.task("default", ["clean"], cb => {
   runSequence(
     "styles",
