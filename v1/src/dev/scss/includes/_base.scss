@@ -53,12 +53,10 @@ img {
   display: none;
 }
 
-.font-12{
-  font-size: 12px;
-}
-
-.font-11{
-  font-size: 11px;
+@for $i from 10 through 50 {
+  .font-#{$i} {
+    font-size: #{$i}px;
+  }
 }
 
 .text-gray{

@@ -8,7 +8,6 @@
 
     @each $prop, $abbrev in (margin: m, padding: p) {
       @each $size, $length in $spacers {
-
         .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
         .#{$abbrev}t#{$infix}-#{$size},
         .#{$abbrev}y#{$infix}-#{$size} {
@@ -26,23 +25,28 @@
         .#{$abbrev}x#{$infix}-#{$size} {
           #{$prop}-left: $length !important;
         }
+      }
+    }
 
-        .#{$abbrev}#{$infix}-#{$size}-n { #{$prop}: $length !important; }
-        .#{$abbrev}t#{$infix}-#{$size}-n,
-        .#{$abbrev}y#{$infix}-#{$size}-n {
-          #{$prop}-top: -$length !important;
+    // Negative margins (e.g., where `.mb-n1` is negative version of `.mb-1`)
+    @each $size, $length in $spacers {
+      @if $size != 0 {
+        .m#{$infix}-n#{$size} { margin: -$length !important; }
+        .mt#{$infix}-n#{$size},
+        .my#{$infix}-n#{$size} {
+          margin-top: -$length !important;
         }
-        .#{$abbrev}r#{$infix}-#{$size}-n,
-        .#{$abbrev}x#{$infix}-#{$size}-n {
-          #{$prop}-right: -$length !important;
+        .mr#{$infix}-n#{$size},
+        .mx#{$infix}-n#{$size} {
+          margin-right: -$length !important;
         }
-        .#{$abbrev}b#{$infix}-#{$size}-n,
-        .#{$abbrev}y#{$infix}-#{$size}-n {
-          #{$prop}-bottom: -$length !important;
+        .mb#{$infix}-n#{$size},
+        .my#{$infix}-n#{$size} {
+          margin-bottom: -$length !important;
         }
-        .#{$abbrev}l#{$infix}-#{$size}-n,
-        .#{$abbrev}x#{$infix}-#{$size}-n {
-          #{$prop}-left: -$length !important;
+        .ml#{$infix}-n#{$size},
+        .mx#{$infix}-n#{$size} {
+          margin-left: -$length !important;
         }
       }
     }
