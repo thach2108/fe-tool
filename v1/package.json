@@ -16,7 +16,9 @@
     "c": "yarn run plop component",
     "module": "yarn run plop module",
     "page": "yarn run plop page",
-    "p": "yarn run plop page"
+    "p": "yarn run plop page",
+    "s": "yarn run plop section",
+    "section": "yarn run plop section"
   },
   "repository": {
     "type": "git"

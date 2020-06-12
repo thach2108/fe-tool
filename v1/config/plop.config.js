@@ -108,5 +108,60 @@ module.exports = (plop) => {
 
       return actions;
     }
-  })
+  });
+
+  
+  plop.setGenerator("section", {
+    description: "Create a new section",
+
+    prompts: [{
+        type: "input",
+        name: "name",
+        message: "What is your component name?",
+      }
+      // {
+      //   type: "confirm",
+      //   name: "needJs",
+      //   message: "Shoud i create JavaScript file?",
+      //   default: false
+      // }
+    ],
+
+    actions: function (data) {
+      var actions = [{
+          type: "add",
+          path: "src/components/{{dashCase name}}/{{dashCase name}}.pug",
+          templateFile: "config/plop-templates/section.pug"
+        },
+        {
+          type: "add",
+          path: "src/components/{{dashCase name}}/_{{dashCase name}}.scss",
+          templateFile: "config/plop-templates/section.scss"
+        },
+        {
+          type: "modify",
+          path: "src/dev/scss/_components.scss",
+          pattern: /(\/\/ Components)/g,
+          template: "$1\n@import \"../../components/{{dashCase name}}/{{dashCase name}}\";"
+        },
+        {
+          type: "modify",
+          path: "src/pages/_partials/mixins.pug",
+          pattern: /(\/\/ Mixins)/g,
+          template: "$1\ninclude ../../components/{{dashCase name}}/{{dashCase name}}.pug"
+        }
+      ];
+
+      // if (data.needJs) {
+      //   actions.push({
+      //     type: "add",
+      //     path: "src/components/{{dashCase name}}/{{dashCase name}}.js",
+      //     templateFile: "config/plop-templates/component.js"
+      //   });
+      // }
+
+      return actions;
+    }
+  });
+  
 };
