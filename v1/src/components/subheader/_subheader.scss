@@ -1,78 +1,86 @@
-.header{
-  .logo{
+.header {
+  .logo {
     max-width: 120px;
   }
-  .menu-site{
+
+  .menu-site {
     z-index: 3;
-    .menu-ctl{
+
+    .menu-ctl {
       min-width: 202px;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
       height: 40px;
-      .fa-angle-up{
-        background-color: $color-orange-2;
+
+      .fa-angle-up {
+        background-color: $orange;
         border-radius: 50%;
         width: 15px;
         height: 15px;
-        color: #ffffff;
-        transition: transform .1s;
+        color: #fff;
+        transition: transform 0.1s;
       }
-      &.collapsed{
-        .fa-angle-up{
+
+      &.collapsed {
+        .fa-angle-up {
           transform: rotate(180deg);
-          transition: transform .1s;
+          transition: transform 0.1s;
         }
       }
     }
-    .menu{
-      ul{
-        &>li{
+
+    .menu {
+      ul {
+        & > li {
           height: 40px;
           min-width: 200px;
-          transition: background .2s;
-          &:hover{
-            background: $color-gray-2;
+          transition: background 0.2s;
+
+          &:hover {
+            background: $gray-700;
           }
         }
       }
-      .user-lock-selection{
+
+      .user-lock-selection {
         line-height: 18px;
       }
     }
   }
-  .search{
+
+  .search {
     height: 40px;
-    width: 40PX;
-    border : 1px solid $color-orange-2;
+    width: 40px;
+    border: 1px solid $orange;
     line-height: 40px;
-    text-align : center;
+    text-align: center;
     border-radius: 4px;
-    cursor: pointer; 
-    transition : all .2s;
-    &:hover{
-      background-color: $color-orange-2;
-      .fa-search{
-        color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    .fa-search {
+      color: $orange;
+    }
+
+    &:hover {
+      background-color: $orange;
+
+      .fa-search {
+        color: #fff;
       }
     }
-    .fa-search{
-      color : $color-orange-2;
-    }
   }
-  .destination-search{
-    background-color: $color-black;
-    .frm-search{
+
+  .destination-search {
+    background-color: $black;
+
+    .frm-search {
       width: 1000px;
-      button{
-        background-color: $color-orange;
+
+      button {
+        background-color: $yellow;
       }
     }
   }
 }
-
-.subheader {
-
-}
-
-

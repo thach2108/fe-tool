@@ -34,7 +34,6 @@ const PLUGINS = [
   //   minPixelValue: 0
   // }),
   autoprefixer({
-    browsers: ["last 50 versions", "ie >= 9"],
     cascade: false
   }),
   reporter({

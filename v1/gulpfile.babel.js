@@ -2,7 +2,6 @@
 import gulp from "gulp";
 import del from "del";
 import fs from "fs";
-import runSequence from "run-sequence";
 import browserSync from "browser-sync";
 import gulpLoadPlugins from "gulp-load-plugins";
 import syntax from "postcss-scss";
@@ -20,16 +19,21 @@ require("gulp-stats")(gulp);
 
 const path = {
   scss: "src/dev/scss/",
-  js: "src/dev/js"
+  js: "src/dev/js",
 };
 
 gulp.task("pug", () => {
   return gulp
     .src(["src/pages/*.pug"])
-    .pipe($.pugLinter())
-    .pipe($.pugLinter.reporter("fail").on("error", $.notify.onError()))
     .pipe(
-      $.data(file => {
+      $.pugLinter({
+        reporter: (er) => {
+          $.notify.onError();
+        },
+      })
+    )
+    .pipe(
+      $.data((file) => {
         return JSON.parse(fs.readFileSync("src/_data/data.json"));
       })
     )
@@ -38,7 +42,7 @@ gulp.task("pug", () => {
     .pipe(
       $.pug({
         // pretty: '\t'
-        pretty: true
+        pretty: true,
       })
     )
     .pipe(gulp.dest("dist/"));
@@ -53,7 +57,7 @@ gulp.task("styles", () => {
     .pipe($.plumberNotifier())
     .pipe(
       $.sass.sync({
-        outputStyle: "expanded"
+        outputStyle: "expanded",
       })
     )
     .pipe($.postcss(debug(PLUGINS), { parser: syntax }))
@@ -68,28 +72,31 @@ gulp.task("lint:css", () => {
       reporters: [
         {
           formatter: "verbose",
-          console: true
-        }
+          console: true,
+        },
       ],
-      failAfterError: false
+      failAfterError: false,
     })
   );
 });
 
-gulp.task("css-debug", ["styles"], () => {
-  debug.inspect();
-});
+gulp.task(
+  "css-debug",
+  gulp.series("styles", (cb) => {
+    debug.inspect();
+    cb();
+  })
+);
 
 gulp.task("images", () => {
   return gulp
     .src("src/images/**/*")
-
     .pipe($.newer("dist/images/"))
     .pipe(
       $.cache(
         $.imagemin({
           progressive: true,
-          interlaced: true
+          interlaced: true,
         })
       )
     )
@@ -100,13 +107,12 @@ gulp.task("images", () => {
 gulp.task("images_dev", () => {
   return gulp
     .src("src/images/**/*")
-
     .pipe($.newer("dist/images/"))
     .pipe(
       $.cache(
         $.imagemin({
           progressive: true,
-          interlaced: true
+          interlaced: true,
         })
       )
     )
@@ -124,66 +130,130 @@ gulp.task("scripts", () => {
     .pipe($.size({ title: "scripts" }));
 });
 
-gulp.task("clean", () => del(["dist"], { dot: true }));
+gulp.task("clean", () => {
+  return del(["dist"], { dot: true });
+});
 
-gulp.task("delete-empty", () => {
+gulp.task("delete-empty", (cb) => {
   deleteEmpty.sync("dist/");
+  cb();
 });
 
 gulp.task("copy", () => {
   return gulp
     .src(COPY_FILES, {
-      base: "src"
+      base: "src",
     })
     .pipe(gulp.dest("dist"))
     .pipe($.size({ title: "copy" }));
 });
 
-gulp.task("serve", ["clean"], cb => {
-  runSequence(
-    ["pug", "styles", "scripts", "images_dev"],
-    "copy",
-    "delete-empty",
-    cb
-  );
-
-  browserSync({
-    notify: true,
-    server: ["dist", "src"],
-    port: 3000
-  });
-
-  gulp.watch(["src/**/**/*.pug"], ["pug", reload]);
-  gulp.watch(["src/_data/data.json"], ["pug", reload]);
-  gulp.watch(["src/**/**/*.scss"], ["lint:css", "styles", reload]);
-  gulp.watch(["src/dev/js/*.js"], ["scripts", reload]);
-  
-  reload();
-});
-
-gulp.task("watch", ["clean"], cb => {
-  
-  runSequence(
-    ["pug", "styles", "scripts", "images_dev"],
-    "copy",
-    "delete-empty",
-    cb
-  );
-
-  gulp.watch(["src/**/**/*.pug"], ["pug", reload]);
-  gulp.watch(["src/_data/data.json"], ["pug", reload]);
-  gulp.watch(["src/**/**/*.scss"], ["lint:css", "styles", reload]);
-  gulp.watch(["src/dev/js/*.js"], ["scripts", reload]);
-
-});
-
-gulp.task("default", ["clean"], cb => {
-  runSequence(
+gulp.task(
+  "serve",
+  gulp.series(
+    "clean",
     "styles",
     "scripts",
-    ["pug", "copy"],
-    "images",
+    "pug",
+    "images_dev",
+    "copy",
     "delete-empty",
-    cb
-  );
-});
+    (cb) => {
+      browserSync({
+        notify: true,
+        server: ["dist", "src"],
+        port: 3000,
+      });
+
+      gulp.watch(
+        "src/_data/data.json",
+        gulp.series("pug", (cb) => {
+          reload();
+          cb();
+        })
+      );
+      gulp.watch(
+        "src/**/**/*.scss",
+        gulp.series("lint:css", "styles", (cb) => {
+          reload();
+          cb();
+        })
+      );
+      gulp.watch(
+        "src/dev/js/*.js",
+        gulp.series("scripts", (cb) => {
+          reload();
+          cb();
+        })
+      );
+      gulp.watch(
+        "src/**/**/*.pug",
+        gulp.series("pug", (cb) => {
+          reload();
+          cb();
+        })
+      );
+
+      reload();
+      cb();
+    }
+  )
+);
+
+gulp.task(
+  "watch",
+  gulp.series(
+    "clean",
+    "styles",
+    "scripts",
+    "pug",
+    "images_dev",
+    "copy",
+    "delete-empty",
+    (cb) => {
+      gulp.watch(
+        "src/_data/data.json",
+        gulp.series("pug", (cb) => {
+          reload();
+          cb();
+        })
+      );
+      gulp.watch(
+        "src/**/**/*.scss",
+        gulp.series("lint:css", "styles", (cb) => {
+          reload();
+          cb();
+        })
+      );
+      gulp.watch(
+        "src/dev/js/*.js",
+        gulp.series("scripts", (cb) => {
+          reload();
+          cb();
+        })
+      );
+      gulp.watch(
+        "src/**/**/*.pug",
+        gulp.series("pug", (cb) => {
+          reload();
+          cb();
+        })
+      );
+      cb();
+    }
+  )
+);
+
+gulp.task(
+  "default",
+  gulp.series(
+    "clean",
+    "styles",
+    "scripts",
+    "pug",
+    "images",
+    "copy",
+    "delete-empty",
+    (cb) => cb()
+  )
+);
