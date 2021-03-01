@@ -6,6 +6,7 @@ html,
 body {
   margin: 0px;
   padding: 0px;
+  font-family: Metric;
 }
 
 .list-inline {
@@ -31,11 +32,6 @@ img {
   border: none;
 }
 
-.container {
-  margin: 0px auto;
-  width: 1170px;
-}
-
 .fleft {
   float: left;
 }
@@ -57,4 +53,18 @@ img {
   .font-#{$i} {
     font-size: #{$i}px;
   }
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.truncate-5 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
 }
