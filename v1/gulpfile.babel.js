@@ -120,22 +120,6 @@ gulp.task("images_dev", () => {
     .pipe(gulp.dest("dist/images/"));
 });
 
-gulp.task("rename-images", () => {
-  var streams = [];
-  for (let index = 1; index <= 72; index++) {
-    var id = index < 10 ? "00" + index : (index < 100 ? "0" + index : index);
-    var stream = gulp
-    .src("src/images/fridge/360-test-0010" + id + ".jpg")
-    .pipe($.rename(function(path) {
-      path.basename = index;
-      path.extname = '.jpg';
-    }))
-    .pipe(gulp.dest("dist/images/fridge"));
-    streams.push(stream);
-  };
-  return MERGE(streams);
-});
-
 gulp.task("scripts", () => {
   return gulp
     .src(JS_ROOTMAP)
@@ -274,3 +258,21 @@ gulp.task(
     (cb) => cb()
   )
 );
+
+
+// support
+gulp.task("rename-images", () => {
+  var streams = [];
+  for (let index = 1; index <= 72; index++) {
+    var id = index < 10 ? "00" + index : (index < 100 ? "0" + index : index);
+    var stream = gulp
+    .src("src/images/fridge/360-test-0010" + id + ".jpg")
+    .pipe($.rename(function(path) {
+      path.basename = index;
+      path.extname = '.jpg';
+    }))
+    .pipe(gulp.dest("dist/images/fridge"));
+    streams.push(stream);
+  };
+  return MERGE(streams);
+});
