@@ -32,6 +32,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/duyph/",
   "devDependencies": {
+    "merge-stream": "^2.0.0",
     "gulp-rename": "^2.0.0",
     "autoprefixer": "^9.8.6",
     "babel-core": "^6.26.3",
